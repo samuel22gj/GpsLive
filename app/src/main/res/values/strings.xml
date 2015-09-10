@@ -1,0 +1,42 @@
+<resources>
+
+    <string name="app_name">GPS Live</string>
+
+    <string name="desc">desc</string>
+    <string name="error">Error</string>
+    <string name="close">Close</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_location_settings">Location Settings</string>
+
+    <string name="category_provider">Provider</string>
+    <string name="category_location">Location</string>
+    <string name="category_satellite">Satellite</string>
+    <string name="category_nmea">NMEA</string>
+
+    <string name="not_support_location_service">Not support location service.</string>
+    <string name="gps_status">GPS Status</string>
+    <string name="network_status">Network Status</string>
+    <string name="passive_status">Passive Status</string>
+    <string name="provider">Provider</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="bearing">Bearing</string>
+    <string name="altitude">Altitude</string>
+    <string name="speed">Speed</string>
+    <string name="time">Time</string>
+    <string name="max_satellites">Max Satellites</string>
+    <string name="satellites">Satellites</string>
+    <string name="first_fix_time">First Fix Time</string>
+    <string name="time_stamp">Time Stamp</string>
+    <string name="nmea">NMEA</string>
+
+    <string name="unit_meter">m</string>
+    <string name="unit_second">s</string>
+    <string name="unit_meters_per_second">m/s</string>
+    <string name="unit_degree">&#176;</string>
+
+</resources>

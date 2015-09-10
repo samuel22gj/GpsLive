@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="@style/InfoCard">
+
+    <GridLayout
+        style="@style/InfoCardContent">
+
+        <TextView
+            style="@style/Category"
+            android:text="@string/category_location" />
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/provider" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/provider" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/latitude" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/latitude" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/longitude" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/longitude" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/altitude" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/altitude" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/accuracy" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/accuracy" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/bearing" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/bearing" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/speed" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/speed" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/time" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/time" />
+    </GridLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="@style/InfoCard">
+
+    <GridLayout
+        style="@style/InfoCardContent">
+
+        <TextView
+            style="@style/Category"
+            android:text="@string/category_nmea" />
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/time_stamp" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/time_stamp" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/nmea" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/nmea" />
+    </GridLayout>
+</android.support.v7.widget.CardView>
