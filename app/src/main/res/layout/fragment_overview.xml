@@ -1,0 +1,22 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.otter.gpslive.OverviewFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/provider_card"/>
+
+        <include layout="@layout/location_card"/>
+
+        <include layout="@layout/gps_status_card"/>
+
+        <include layout="@layout/nmea_card"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

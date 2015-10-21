@@ -10,12 +10,20 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.otter.gpslive.eventbus.BusProvider;
+import com.otter.gpslive.eventbus.GpsStatusChangedEvent;
+import com.otter.gpslive.eventbus.LocationChangedEvent;
+import com.otter.gpslive.eventbus.NmeaChangedEvent;
+import com.otter.gpslive.eventbus.ProvidersChangedEvent;
+import com.squareup.otto.Produce;
 
 public class GpsLiveActivity extends AppCompatActivity
         implements LocationListener, GpsStatus.Listener, GpsStatus.NmeaListener {
@@ -26,30 +34,14 @@ public class GpsLiveActivity extends AppCompatActivity
 
     private LocationManager mLocationManager;
 
-    private TextView gps_status;
-    private TextView network_status;
-    private TextView passive_status;
-    private TextView provider;
-    private TextView accuracy;
-    private TextView longitude;
-    private TextView latitude;
-    private TextView bearing;
-    private TextView altitude;
-    private TextView speed;
-    private TextView time;
-    private TextView max_satellites;
-    private TextView satellites;
-    private TextView first_fix_time;
-    private TextView time_stamp;
-    private TextView nmea;
+    private ViewPager mViewPager;
+    private OverviewFragment mOverviewFragment;
+    private SatelliteFragment mSatelliteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_gps_live);
-        findViews();
-        initToolbar();
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (mLocationManager == null) {
@@ -57,23 +49,35 @@ public class GpsLiveActivity extends AppCompatActivity
             showErrorDialog(getString(R.string.not_support_location_service));
             finish();
         }
+
+        mOverviewFragment = OverviewFragment.newInstance();
+        mSatelliteFragment = SatelliteFragment.newInstance();
+
+        initToolbar();
+        initViewPager();
+        initTabLayout();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        // Register event bus Otto.
+        BusProvider.getInstance().register(this);
+
         if (mLocationManager != null) {
             registerGpsListeners();
 
+            // Show providers information.
             showProvidersInfo();
 
+            // Show location information.
             String bestProvider = mLocationManager.getBestProvider(new Criteria(), false);
             Location lastKnownLocation = mLocationManager.getLastKnownLocation(bestProvider);
             if (lastKnownLocation != null) showLocationInfo(lastKnownLocation);
 
-            GpsStatus gpsStatus = mLocationManager.getGpsStatus(null);
-            if (gpsStatus != null) showGpsStatusInfo(gpsStatus);
+            // Show GPS status information.
+            if (mLocationManager.getGpsStatus(null) != null) showGpsStatusInfo();
         }
     }
 
@@ -81,28 +85,17 @@ public class GpsLiveActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
 
+        // Unregister event bus Otto.
+        BusProvider.getInstance().unregister(this);
+
         if (mLocationManager != null) {
             unregisterGpsListeners();
         }
     }
 
-    private void findViews() {
-        gps_status = (TextView) findViewById(R.id.gps_status);
-        network_status = (TextView) findViewById(R.id.network_status);
-        passive_status = (TextView) findViewById(R.id.passive_status);
-        provider = (TextView) findViewById(R.id.provider);
-        accuracy = (TextView) findViewById(R.id.accuracy);
-        longitude = (TextView) findViewById(R.id.longitude);
-        latitude = (TextView) findViewById(R.id.latitude);
-        bearing = (TextView) findViewById(R.id.bearing);
-        altitude = (TextView) findViewById(R.id.altitude);
-        speed = (TextView) findViewById(R.id.speed);
-        time = (TextView) findViewById(R.id.time);
-        max_satellites = (TextView) findViewById(R.id.max_satellites);
-        satellites = (TextView) findViewById(R.id.satellites);
-        first_fix_time = (TextView) findViewById(R.id.first_fix_time);
-        time_stamp = (TextView) findViewById(R.id.time_stamp);
-        nmea = (TextView) findViewById(R.id.nmea);
+    private void showErrorDialog(String msg) {
+        ErrorDialog errorDialog = ErrorDialog.newInstance(msg);
+        errorDialog.show(getSupportFragmentManager(), ErrorDialog.FRAGMENT_TAG);
     }
 
     private void initToolbar() {
@@ -110,9 +103,17 @@ public class GpsLiveActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
     }
 
-    private void showErrorDialog(String msg) {
-        ErrorDialog errorDialog = ErrorDialog.newInstance(msg);
-        errorDialog.show(getSupportFragmentManager(), ErrorDialog.FRAGMENT_TAG);
+    private void initViewPager() {
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(mOverviewFragment, getString(R.string.nav_item_overview));
+        adapter.addFragment(mSatelliteFragment, getString(R.string.nav_item_satellite));
+        mViewPager.setAdapter(adapter);
+    }
+
+    private void initTabLayout() {
+        TabLayout tab_layout = (TabLayout) findViewById(R.id.tab_layout);
+        tab_layout.setupWithViewPager(mViewPager);
     }
 
     private void registerGpsListeners() {
@@ -142,45 +143,38 @@ public class GpsLiveActivity extends AppCompatActivity
     }
 
     private void showProvidersInfo() {
-        gps_status.setText(getString(
-                mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ? R.string.enable : R.string.disable));
-        network_status.setText(getString(
-                mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ? R.string.enable : R.string.disable));
-        passive_status.setText(getString(
-                mLocationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER) ? R.string.enable : R.string.disable));
+        BusProvider.getInstance().post(produceProvidersChangedEvent());
+    }
+
+    @Produce
+    public ProvidersChangedEvent produceProvidersChangedEvent() {
+        return new ProvidersChangedEvent(
+                mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER),
+                mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER),
+                mLocationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)
+        );
     }
 
     private void showLocationInfo(Location location) {
-        String meters = " " + getString(R.string.unit_meter);
-        String metersPerSecond = " " + getString(R.string.unit_meters_per_second);
-        String degrees = " " + getString(R.string.unit_degree);
-
-        provider.setText(location.getProvider());
-        latitude.setText(String.valueOf(location.getLatitude()) + degrees);
-        longitude.setText(String.valueOf(location.getLongitude()) + degrees);
-        altitude.setText(String.valueOf(location.getAltitude()) + meters);
-        accuracy.setText(String.valueOf(location.getAccuracy()) + meters);
-        bearing.setText(String.valueOf(location.getBearing()) + degrees);
-        speed.setText(String.valueOf(location.getSpeed()) + metersPerSecond);
-        time.setText(Util.convertMillisecondToDateTime(location.getTime()));
+        BusProvider.getInstance().post(new LocationChangedEvent(location));
     }
 
-    private void showGpsStatusInfo(GpsStatus gpsStatus) {
-        String seconds = " " + getString(R.string.unit_second);
+    private void showGpsStatusInfo() {
+        BusProvider.getInstance().post(produceGpsStatusChangedEvent());
 
-        max_satellites.setText(String.valueOf(gpsStatus.getMaxSatellites()));
-        int satelliteCount = 0;
+        // TODO: Show each GpsSatellite detail.
+        GpsStatus gpsStatus = mLocationManager.getGpsStatus(null);
         for (GpsSatellite gpsSatellite : gpsStatus.getSatellites()) {
-            // TODO: Show each GpsSatellite detail.
-            satelliteCount++;
         }
-        satellites.setText(String.valueOf(satelliteCount));
-        first_fix_time.setText((gpsStatus.getTimeToFirstFix() / 1000.0) + seconds);
+    }
+
+    @Produce
+    public GpsStatusChangedEvent produceGpsStatusChangedEvent() {
+        return new GpsStatusChangedEvent(mLocationManager.getGpsStatus(null));
     }
 
     private void showNmeaInfo(long timestamp, String nmea) {
-        time_stamp.setText(Util.convertMillisecondToDateTime(timestamp));
-        this.nmea.setText(nmea);
+        BusProvider.getInstance().post(new NmeaChangedEvent(timestamp, nmea));
     }
 
     /* **************** *
@@ -246,7 +240,7 @@ public class GpsLiveActivity extends AppCompatActivity
         }
         Log.v(TAG, "onGpsStatusChanged(" + eventStr + ")");
 
-        showGpsStatusInfo(mLocationManager.getGpsStatus(null));
+        showGpsStatusInfo();
     }
 
     /* ********************** *
