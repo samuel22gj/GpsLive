@@ -72,8 +72,7 @@ public class GpsLiveActivity extends AppCompatActivity
             showProvidersInfo();
 
             // Show location information.
-            String bestProvider = mLocationManager.getBestProvider(new Criteria(), false);
-            Location lastKnownLocation = mLocationManager.getLastKnownLocation(bestProvider);
+            Location lastKnownLocation = getLastKnownLocation();
             if (lastKnownLocation != null) showLocationInfo(lastKnownLocation);
 
             // Show GPS status information.
@@ -142,6 +141,11 @@ public class GpsLiveActivity extends AppCompatActivity
         mLocationManager.removeNmeaListener(this);
     }
 
+    private Location getLastKnownLocation() {
+        return  mLocationManager.getLastKnownLocation(
+                mLocationManager.getBestProvider(new Criteria(), false));
+    }
+
     private void showProvidersInfo() {
         BusProvider.getInstance().post(produceProvidersChangedEvent());
     }
@@ -157,6 +161,11 @@ public class GpsLiveActivity extends AppCompatActivity
 
     private void showLocationInfo(Location location) {
         BusProvider.getInstance().post(new LocationChangedEvent(location));
+    }
+
+    @Produce
+    public LocationChangedEvent produceLocationChangedEvent() {
+        return new LocationChangedEvent(getLastKnownLocation());
     }
 
     private void showGpsStatusInfo() {

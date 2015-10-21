@@ -100,6 +100,7 @@ public class OverviewFragment extends Fragment {
     @Subscribe
     public void onLocationChanged(LocationChangedEvent event) {
         Location location = event.getLocation();
+        if (location == null) return;
 
         String meters = getString(R.string.unit_meter);
         String metersPerSecond = getString(R.string.unit_meters_per_second);
