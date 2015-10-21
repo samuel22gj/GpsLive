@@ -9,7 +9,7 @@
 
         <TextView
             style="@style/Category"
-            android:text="@string/category_satellite" />
+            android:text="@string/category_gps_status" />
 
         <TextView
             style="@style/Item"

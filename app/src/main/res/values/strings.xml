@@ -16,13 +16,13 @@
 
     <string name="category_provider">Provider</string>
     <string name="category_location">Location</string>
-    <string name="category_satellite">Satellite</string>
+    <string name="category_gps_status">GPS Status</string>
     <string name="category_nmea">NMEA</string>
 
     <string name="not_support_location_service">Not support location service.</string>
-    <string name="gps_status">GPS Status</string>
-    <string name="network_status">Network Status</string>
-    <string name="passive_status">Passive Status</string>
+    <string name="gps">GPS</string>
+    <string name="network">Network</string>
+    <string name="passive">Passive</string>
     <string name="provider">Provider</string>
     <string name="accuracy">Accuracy</string>
     <string name="longitude">Longitude</string>

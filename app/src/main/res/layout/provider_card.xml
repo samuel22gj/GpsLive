@@ -13,7 +13,7 @@
 
         <TextView
             style="@style/Item"
-            android:text="@string/gps_status" />
+            android:text="@string/gps" />
 
         <TextView
             style="@style/Value"
@@ -23,7 +23,7 @@
 
         <TextView
             style="@style/Item"
-            android:text="@string/network_status" />
+            android:text="@string/network" />
 
         <TextView
             style="@style/Value"
@@ -33,7 +33,7 @@
 
         <TextView
             style="@style/Item"
-            android:text="@string/passive_status" />
+            android:text="@string/passive" />
 
         <TextView
             style="@style/Value"
