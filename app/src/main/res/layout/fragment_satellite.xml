@@ -1,8 +1,8 @@
-<FrameLayout
+<android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/satellite_recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.otter.gpslive.SatelliteFragment">
-
-</FrameLayout>
+    android:scrollbars="vertical"
+    tools:context="com.otter.gpslive.SatelliteFragment"/>

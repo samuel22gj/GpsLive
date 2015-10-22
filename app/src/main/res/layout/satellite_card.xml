@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="@style/InfoCard">
+
+    <GridLayout
+        style="@style/InfoCardContent">
+
+        <TextView
+            style="@style/Category"
+            android:id="@+id/number" />
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/azimuth" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/azimuth" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/elevation" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/elevation" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/prn" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/prn" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/snr" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/snr" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/almanac" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/almanac" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/ephemeris" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/ephemeris" />
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            style="@style/Item"
+            android:text="@string/used_in_fix" />
+
+        <TextView
+            style="@style/Value"
+            android:id="@+id/used_in_fix" />
+    </GridLayout>
+</android.support.v7.widget.CardView>

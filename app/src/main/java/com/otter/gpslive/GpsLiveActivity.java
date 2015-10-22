@@ -23,7 +23,11 @@ import com.otter.gpslive.eventbus.GpsStatusChangedEvent;
 import com.otter.gpslive.eventbus.LocationChangedEvent;
 import com.otter.gpslive.eventbus.NmeaChangedEvent;
 import com.otter.gpslive.eventbus.ProvidersChangedEvent;
+import com.otter.gpslive.eventbus.SatellitesChangedEvent;
 import com.squareup.otto.Produce;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GpsLiveActivity extends AppCompatActivity
         implements LocationListener, GpsStatus.Listener, GpsStatus.NmeaListener {
@@ -76,7 +80,10 @@ public class GpsLiveActivity extends AppCompatActivity
             if (lastKnownLocation != null) showLocationInfo(lastKnownLocation);
 
             // Show GPS status information.
-            if (mLocationManager.getGpsStatus(null) != null) showGpsStatusInfo();
+            if (mLocationManager.getGpsStatus(null) != null) {
+                showGpsStatusInfo();
+                showSatellitesInfo();
+            }
         }
     }
 
@@ -170,16 +177,26 @@ public class GpsLiveActivity extends AppCompatActivity
 
     private void showGpsStatusInfo() {
         BusProvider.getInstance().post(produceGpsStatusChangedEvent());
-
-        // TODO: Show each GpsSatellite detail.
-        GpsStatus gpsStatus = mLocationManager.getGpsStatus(null);
-        for (GpsSatellite gpsSatellite : gpsStatus.getSatellites()) {
-        }
     }
 
     @Produce
     public GpsStatusChangedEvent produceGpsStatusChangedEvent() {
         return new GpsStatusChangedEvent(mLocationManager.getGpsStatus(null));
+    }
+
+    private void showSatellitesInfo() {
+        BusProvider.getInstance().post(produceSatellitesChangedEvent());
+    }
+
+    @Produce
+    public SatellitesChangedEvent produceSatellitesChangedEvent() {
+        GpsStatus gpsStatus = mLocationManager.getGpsStatus(null);
+        List<GpsSatellite> satellites = new ArrayList<GpsSatellite>();
+        for (GpsSatellite gpsSatellite : gpsStatus.getSatellites()) {
+            satellites.add(gpsSatellite);
+        }
+
+        return new SatellitesChangedEvent(satellites);
     }
 
     private void showNmeaInfo(long timestamp, String nmea) {
@@ -232,24 +249,28 @@ public class GpsLiveActivity extends AppCompatActivity
      * ****************** */
     @Override
     public void onGpsStatusChanged(int event) {
+        // TODO: 2015/10/21 GPS_EVENT_SATELLITE_STATUS too noisy.
         String eventStr = null;
         switch (event) {
             case GpsStatus.GPS_EVENT_STARTED:
                 eventStr = "GPS_EVENT_STARTED";
+                showGpsStatusInfo();
                 break;
             case GpsStatus.GPS_EVENT_STOPPED:
                 eventStr = "GPS_EVENT_STOPPED";
+                showGpsStatusInfo();
                 break;
             case GpsStatus.GPS_EVENT_FIRST_FIX:
                 eventStr = "GPS_EVENT_FIRST_FIX";
+                showGpsStatusInfo();
                 break;
             case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
                 eventStr = "GPS_EVENT_SATELLITE_STATUS";
+                showGpsStatusInfo();
+                showSatellitesInfo();
                 break;
         }
         Log.v(TAG, "onGpsStatusChanged(" + eventStr + ")");
-
-        showGpsStatusInfo();
     }
 
     /* ********************** *
