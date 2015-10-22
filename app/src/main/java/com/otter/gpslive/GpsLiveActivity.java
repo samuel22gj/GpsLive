@@ -153,6 +153,9 @@ public class GpsLiveActivity extends AppCompatActivity
                 mLocationManager.getBestProvider(new Criteria(), false));
     }
 
+    /* ********** *
+     * Post Event *
+     * ********** */
     private void showProvidersInfo() {
         BusProvider.getInstance().post(produceProvidersChangedEvent());
     }
