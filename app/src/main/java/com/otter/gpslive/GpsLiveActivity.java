@@ -211,38 +211,36 @@ public class GpsLiveActivity extends AppCompatActivity
      * **************** */
     @Override
     public void onLocationChanged(Location location) {
-//        Log.v(TAG, "onLocationChanged");
+//        Log.v(TAG, "onLocationChanged()");
 
         showLocationInfo(location);
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        String statusStr = null;
         switch (status) {
             case LocationProvider.OUT_OF_SERVICE:
-                statusStr = "OUT_OF_SERVICE";
+                Log.v(TAG, "onStatusChange(" + provider + ", OUT_OF_SERVICE)");
                 break;
             case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                statusStr = "TEMPORARILY_UNAVAILABLE";
+                Log.v(TAG, "onStatusChange(" + provider + ", TEMPORARILY_UNAVAILABLE)");
                 break;
             case LocationProvider.AVAILABLE:
-                statusStr = "AVAILABLE";
+                Log.v(TAG, "onStatusChange(" + provider + ", AVAILABLE)");
                 break;
         }
-        Log.v(TAG, "onStatusChange(" + provider + ", " + statusStr + ")");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-//        Log.v(TAG, "onProviderEnabled: " + provider);
+//        Log.v(TAG, "onProviderEnabled(" + provider + ")");
 
         showProvidersInfo();
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-//        Log.v(TAG, "onProviderDisabled: " + provider);
+//        Log.v(TAG, "onProviderDisabled(" + provider + ")");
 
         showProvidersInfo();
     }
@@ -252,28 +250,29 @@ public class GpsLiveActivity extends AppCompatActivity
      * ****************** */
     @Override
     public void onGpsStatusChanged(int event) {
-        // TODO: 2015/10/21 GPS_EVENT_SATELLITE_STATUS too noisy.
-        String eventStr = null;
         switch (event) {
             case GpsStatus.GPS_EVENT_STARTED:
-                eventStr = "GPS_EVENT_STARTED";
+                Log.v(TAG, "onGpsStatusChanged(GPS_EVENT_STARTED)");
+
                 showGpsStatusInfo();
                 break;
             case GpsStatus.GPS_EVENT_STOPPED:
-                eventStr = "GPS_EVENT_STOPPED";
+                Log.v(TAG, "onGpsStatusChanged(GPS_EVENT_STOPPED)");
+
                 showGpsStatusInfo();
                 break;
             case GpsStatus.GPS_EVENT_FIRST_FIX:
-                eventStr = "GPS_EVENT_FIRST_FIX";
+                Log.v(TAG, "onGpsStatusChanged(GPS_EVENT_FIRST_FIX)");
+
                 showGpsStatusInfo();
                 break;
             case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
-                eventStr = "GPS_EVENT_SATELLITE_STATUS";
+//                Log.v(TAG, "onGpsStatusChanged(GPS_EVENT_SATELLITE_STATUS)");
+
                 showGpsStatusInfo();
                 showSatellitesInfo();
                 break;
         }
-        Log.v(TAG, "onGpsStatusChanged(" + eventStr + ")");
     }
 
     /* ********************** *
@@ -281,7 +280,7 @@ public class GpsLiveActivity extends AppCompatActivity
      * ********************** */
     @Override
     public void onNmeaReceived(long timestamp, String nmea) {
-//        Log.v(TAG, "onNmeaReceived: " + timestamp + ", " + nmea);
+//        Log.v(TAG, "onNmeaReceived(" + timestamp + ", " + nmea + ")");
 
         showNmeaInfo(timestamp, nmea);
     }
