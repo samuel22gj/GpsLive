@@ -8,8 +8,8 @@
         style="@style/InfoCardContent">
 
         <TextView
-            style="@style/Category"
-            android:text="@string/category_provider" />
+            style="@style/Title"
+            android:text="@string/title_provider" />
 
         <TextView
             style="@style/Item"

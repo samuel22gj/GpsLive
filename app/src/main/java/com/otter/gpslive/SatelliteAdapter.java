@@ -58,7 +58,7 @@ public class SatelliteAdapter extends RecyclerView.Adapter<SatelliteAdapter.View
 
         String degrees = mContext.getString(R.string.unit_degree);
 
-        holder.number.setText(mContext.getString(R.string.format_number, position + 1));
+        holder.number.setText(mContext.getString(R.string.title_number, position + 1));
         holder.azimuth.setText(mContext.getString(R.string.format_value_and_unit,
                 String.valueOf(gpsSatellite.getAzimuth()), degrees));
         holder.elevation.setText(mContext.getString(R.string.format_value_and_unit,

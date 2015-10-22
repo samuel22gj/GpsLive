@@ -8,7 +8,7 @@
         style="@style/InfoCardContent">
 
         <TextView
-            style="@style/Category"
+            style="@style/Title"
             android:id="@+id/number" />
 
         <TextView

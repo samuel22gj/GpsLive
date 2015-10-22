@@ -18,7 +18,6 @@
     <string name="unit_degree">&#176;</string>
 
     <string name="format_value_and_unit">%1$s %2$s</string>
-    <string name="format_number">No.%1$d</string>
 
     <!-- Menu -->
     <string name="action_settings">Settings</string>
@@ -32,10 +31,10 @@
     <string name="not_support_location_service">Not support location service.</string>
 
     <!-- Overview Page -->
-    <string name="category_provider">Provider</string>
-    <string name="category_location">Location</string>
-    <string name="category_gps_status">GPS Status</string>
-    <string name="category_nmea">NMEA</string>
+    <string name="title_provider">Provider</string>
+    <string name="title_location">Location</string>
+    <string name="title_gps_status">GPS Status</string>
+    <string name="title_nmea">NMEA</string>
 
     <string name="gps">GPS</string>
     <string name="network">Network</string>
@@ -55,6 +54,8 @@
     <string name="nmea">NMEA</string>
 
     <!-- Satellite Page -->
+    <string name="title_number">No.%1$d</string>
+
     <string name="azimuth">Azimuth</string>
     <string name="elevation">Elevation</string>
     <string name="prn">PRN</string> <!-- pseudo-random number -->
