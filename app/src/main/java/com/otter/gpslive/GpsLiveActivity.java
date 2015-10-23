@@ -2,6 +2,7 @@ package com.otter.gpslive;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.GpsSatellite;
 import android.location.GpsStatus;
@@ -10,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -33,9 +35,6 @@ public class GpsLiveActivity extends AppCompatActivity
         implements LocationListener, GpsStatus.Listener, GpsStatus.NmeaListener {
     private static final String TAG = GpsLiveActivity.class.getSimpleName();
 
-    private static final long MIN_UPDATE_INTERVAL  = 0L; // milliseconds
-    private static final float MIN_UPDATE_DISTANCE = 0F; // meters
-
     private LocationManager mLocationManager;
 
     private ViewPager mViewPager;
@@ -45,6 +44,10 @@ public class GpsLiveActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initial the default value of Settings.
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
         setContentView(R.layout.activity_gps_live);
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -127,12 +130,12 @@ public class GpsLiveActivity extends AppCompatActivity
         if (mLocationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER)) {
             Log.i(TAG, "Register GPS Location Provider");
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    MIN_UPDATE_INTERVAL, MIN_UPDATE_DISTANCE, this);
+                    getMinUpdateInterval(), getMinUpdateDistance(), this);
         }
         if (mLocationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER)) {
             Log.i(TAG, "Register Network Location Provider");
             mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                    MIN_UPDATE_INTERVAL, MIN_UPDATE_DISTANCE, this);
+                    getMinUpdateInterval(), getMinUpdateDistance(), this);
         }
 
         // Register the listener to receiving notifications when GPS status has changed.
@@ -151,6 +154,21 @@ public class GpsLiveActivity extends AppCompatActivity
     private Location getLastKnownLocation() {
         return  mLocationManager.getLastKnownLocation(
                 mLocationManager.getBestProvider(new Criteria(), false));
+    }
+
+    private long getMinUpdateInterval() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String timeStr = prefs.getString(SettingsFragment.KEY_UPDATE_FREQ_TIME,
+                getString(R.string.prefs_update_freq_time_default));
+        return Long.valueOf(timeStr);
+    }
+
+    private float getMinUpdateDistance() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String distanceStr = prefs.getString(SettingsFragment.KEY_UPDATE_FREQ_DISTANCE,
+                getString(R.string.prefs_update_freq_distance_default));
+        return Float.valueOf(distanceStr);
+
     }
 
     /* ********** *
@@ -304,6 +322,8 @@ public class GpsLiveActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.action_settings:
+                // Open application settings.
+                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.action_location_settings:
                 // Open system location settings.

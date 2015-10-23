@@ -13,7 +13,7 @@
     <style name="AppTheme" parent="AppTheme.Base">
 
     </style>
-    
+
     <style name="InfoCard" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

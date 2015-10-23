@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/prefs_update_freq">
+
+        <ListPreference
+            android:key="prefs_update_freq_time"
+            android:title="@string/prefs_update_freq_time"
+            android:entries="@array/prefs_update_freq_time_list"
+            android:entryValues="@array/prefs_update_freq_time_value"
+            android:defaultValue="@string/prefs_update_freq_time_default"
+            android:dialogTitle="@string/prefs_update_freq_time_dialog_title"/>
+
+        <ListPreference
+            android:key="prefs_update_freq_distance"
+            android:title="@string/prefs_update_freq_distance"
+            android:entries="@array/prefs_update_freq_distance_list"
+            android:entryValues="@array/prefs_update_freq_distance_value"
+            android:defaultValue="@string/prefs_update_freq_distance_default"
+            android:dialogTitle="@string/prefs_update_freq_distance_dialog_title"/>
+    </PreferenceCategory>
+</PreferenceScreen>

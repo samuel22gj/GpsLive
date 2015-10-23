@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Update Frequency -->
+    <string name="prefs_update_freq">Update Frequency</string>
+    <string name="prefs_update_freq_summary">Every %1$s</string>
+
+    <!-- Update Frequency: Time -->
+    <string name="prefs_update_freq_time">Time</string>
+    <string-array name="prefs_update_freq_time_list">
+        <item>Immediate</item>
+        <item>2 seconds</item>
+        <item>5 seconds</item>
+        <item>10 seconds</item>
+        <item>30 seconds </item>
+    </string-array>
+    <string-array name="prefs_update_freq_time_value">
+        <item>0</item>
+        <item>2000</item>
+        <item>5000</item>
+        <item>10000</item>
+        <item>30000</item>
+    </string-array>
+    <string name="prefs_update_freq_time_default">2000</string>
+    <string name="prefs_update_freq_time_dialog_title">Choose time interval</string>
+
+    <!-- Update Frequency: Distance -->
+    <string name="prefs_update_freq_distance">Distance</string>
+    <string-array name="prefs_update_freq_distance_list">
+        <item>Immediate</item>
+        <item>1 meter</item>
+        <item>2 meters</item>
+        <item>5 meters</item>
+        <item>10 meters</item>
+    </string-array>
+    <string-array name="prefs_update_freq_distance_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
+    <string name="prefs_update_freq_distance_default">0</string>
+    <string name="prefs_update_freq_distance_dialog_title">Choose distance</string>
+
+</resources>
