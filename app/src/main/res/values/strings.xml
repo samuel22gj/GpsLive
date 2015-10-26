@@ -64,4 +64,6 @@
     <string name="ephemeris">Ephemeris</string>
     <string name="used_in_fix">Used In Fix</string>
 
+    <string name="satellite_empty_hint">They run away from home :(</string>
+
 </resources>

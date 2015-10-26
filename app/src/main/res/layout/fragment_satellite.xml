@@ -1,8 +1,23 @@
-<android.support.v7.widget.RecyclerView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/satellite_recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    tools:context="com.otter.gpslive.SatelliteFragment"/>
+    tools:context="com.otter.gpslive.SatelliteFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/satellite_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/satellite_empty_txt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/satellite_empty_hint"
+        android:visibility="visible"/>
+</RelativeLayout>
