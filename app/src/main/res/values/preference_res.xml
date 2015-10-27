@@ -43,4 +43,10 @@
     <string name="prefs_update_freq_distance_default">0</string>
     <string name="prefs_update_freq_distance_dialog_title">Choose distance</string>
 
+    <!-- System Settings -->
+    <string name="prefs_system_settings">System Settings</string>
+
+    <string name="prefs_system_settings_location">Location</string>
+    <string name="prefs_system_settings_location_summary">Configure current location sources</string>
+
 </resources>

@@ -21,4 +21,15 @@
             android:defaultValue="@string/prefs_update_freq_distance_default"
             android:dialogTitle="@string/prefs_update_freq_distance_dialog_title"/>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_system_settings">
+
+        <Preference
+            android:title="@string/prefs_system_settings_location"
+            android:summary="@string/prefs_system_settings_location_summary">
+
+            <intent android:action="android.settings.LOCATION_SOURCE_SETTINGS"/>
+        </Preference>
+    </PreferenceCategory>
 </PreferenceScreen>

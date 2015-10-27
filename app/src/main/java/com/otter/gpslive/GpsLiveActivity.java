@@ -325,11 +325,6 @@ public class GpsLiveActivity extends AppCompatActivity
                 // Open application settings.
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
-            case R.id.action_location_settings:
-                // Open system location settings.
-                Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

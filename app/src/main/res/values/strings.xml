@@ -21,7 +21,6 @@
 
     <!-- Menu -->
     <string name="action_settings">Settings</string>
-    <string name="action_location_settings">Location Settings</string>
 
     <!-- Navigation Item -->
     <string name="nav_item_overview">Overview</string>
