@@ -1,5 +1,7 @@
 # GPS Live
 
+[![Build Status](https://travis-ci.org/samuel22gj/GpsLive.svg?branch=master)](https://travis-ci.org/samuel22gj/GpsLive)
+
 Show any GPS information you want to know.
 
 ## Screenshot
