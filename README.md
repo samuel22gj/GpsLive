@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/samuel22gj/GpsLive.svg?branch=master)](https://travis-ci.org/samuel22gj/GpsLive)
 
-GPS Live is a GPS monitor app with **Material Design**. It can show any GPS information you want to know. The following are some main features:
+GPS Live is a GPS monitor app with **Material Design**. It can show any GPS information you want to know.
+
+The following are some main features:
 - GPS provider state
 - Location information such as: Latitude, Longitude, Altitude, etc.
 - NMEA data
