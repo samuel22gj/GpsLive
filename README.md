@@ -1,5 +1,6 @@
 # GPS Live
 
+[![Gitter](https://badges.gitter.im/samuel22gj/GpsLive.svg)](https://gitter.im/samuel22gj/GpsLive?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Build Status](https://travis-ci.org/samuel22gj/GpsLive.svg?branch=master)](https://travis-ci.org/samuel22gj/GpsLive)
 
 GPS Live is a GPS monitor app with **Material Design**. It can show any GPS information you want to know.
